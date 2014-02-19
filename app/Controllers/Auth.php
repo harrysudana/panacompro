@@ -9,6 +9,9 @@ class Auth extends Resources\Controller {
 		$this->request = new Resources\Request;
 		$this->uri = new Resources\Uri;
 		$this->auth = new Libraries\Auth;
+		$this->template = new Libraries\Template;
+
+		//$this->template->setType = "admin";
 
 		$this->auth->allow(
 			array('login')
@@ -17,7 +20,8 @@ class Auth extends Resources\Controller {
 	}
 
 	public function login(){
-
+		//$this->template->setType = "admin";
+		$this->template->render('admin','login');
 	}
-	
+
 }
