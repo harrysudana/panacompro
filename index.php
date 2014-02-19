@@ -1,17 +1,17 @@
 <?php
 // Sets the default timezone used by all date/time. Adjust to your location
 date_default_timezone_set('Asia/Jakarta');
-
+//echo dirname(__DIR__);
 // You can adjust this following constants if necessary.
 
 // The APP constant is where your application folder located.
-define('APP', dirname(__FILE__) . '/');
+define('APP', dirname(__FILE__) . '/app/');
 
 // The INDEX_FILE constant is this default file name.
 define('INDEX_FILE', basename(__FILE__));
 
 // And the GEAR constant is where panada folder located.
-define('GEAR', dirname(__DIR__).'/panada/');
+define('GEAR', dirname(__FILE__).'/Panada/panada/');
 
 require_once GEAR.'Gear.php';
 
