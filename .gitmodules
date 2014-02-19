@@ -1,0 +1,3 @@
+[submodule "Panada"]
+	path = Panada
+	url = https://github.com/panada/Panada.git
