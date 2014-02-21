@@ -1,5 +1,5 @@
 <?php
-namespace Controllers;
+namespace Modules\Administration\Controllers;
 use Resources, Models, Libraries;
 
 class Auth extends Resources\Controller {

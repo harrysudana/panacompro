@@ -2,7 +2,7 @@
 namespace Controllers;
 use Resources, Models;
 
-class Home extends Resources\Controller
+class Homeo extends Resources\Controller
 {
     public function index()
     {

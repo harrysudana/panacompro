@@ -8,16 +8,20 @@ class Auth {
 		$this->session = new Resources\Session;
         $this->request = new Resources\Request;
         $this->uri = new Resources\Uri;
+        $this->route = new Route;
         $this->user = new Models\Users;
+
+        $this->WebConfig = Resources\Config::website();
+
 	}
 
 	public function allow($method){
 		if(is_array($method)){
 			foreach($method as $row){
-				if($row != $this->uri->getMethod()){
+				if($row != $this->route->getMethod()){
 					if(!$this->islogged()){
 						$controller = new Resources\Controller;
-						$controller->redirect('auth/login');
+						$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
 					}
 				}
 			}
