@@ -19,23 +19,38 @@ class Route
         $i=0;
         $controller_path = APP;
         $module_path = $this->config['main']['module']['path'] . 'Modules/';
-        $capptest = $segment[$i];
+        $capptest = ucwords($segment[$i]);
 
         do{
             if(is_dir($controller_path.$capptest)){
                 $this->setDirectory($controller_path.$capptest);
-                $this->setClass( isset($segment[$i+1])? $segment[$i+1] : $this->config['main']['defaultController'] ) ;
-                $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
-                
-                break;
+
+                if(isset($segment[$i+1])){
+                    if(!is_dir( $this->getDirectory() . ucwords($segment[$i+1]) ) ){
+                        $this->setClass( $segment[$i+1] ) ;
+                        $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
+                        break;
+                    }
+                }else{
+                    $this->setClass( $this->config['main']['defaultController'] ) ;
+                    $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
+                    break;
+                }
+               
             }elseif(is_dir($module_path.$capptest)){
                 $this->setDirectory($module_path.$capptest);
-                $this->setClass( isset($segment[$i+1])? $segment[$i+1] : $this->config['main']['defaultController'] );
-                $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
-                
-                break;
+                if(isset($segment[$i+1])){
+                    if(!is_dir( $this->getDirectory() . ucwords($segment[$i+1]) ) ){
+                        $this->setClass( $segment[$i+1] ) ;
+                        $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
+                        break;
+                    }
+                }else{
+                    $this->setClass( $this->config['main']['defaultController'] ) ;
+                    $this->setMethod( isset($segment[$i+2])? $segment[$i+2]:'index' );
+                    break;
+                }
             }
-
             $i = $i +1;
             $capptest = $capptest .'/'. $segment[$i];
 
@@ -61,6 +76,10 @@ class Route
 
     public function setDirectory($dir){
         $this->directory = $dir;
+    }
+
+    public function getDirectory(){
+        return $this->directory."/";
     }
 
 }
