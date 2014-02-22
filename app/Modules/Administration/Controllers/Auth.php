@@ -61,7 +61,7 @@ class Auth extends Resources\Controller {
 
 		if( $this->request->post('btnregister') ) {
 			
-			if( !$this->auth->isUsernameExists($this->request->post('username') )  ){
+			if( !$this->auth->isUsernameExists( $this->request->post('username') ) || !$this->auth->isEmailExists( $this->request->post('email') )  ){
 
 				if( !$this->auth->register(
 					$this->request->post('username'), 
@@ -75,11 +75,9 @@ class Auth extends Resources\Controller {
 
 					$this->redirect( $redirect );
 				}
-
-
 				
 			}else{
-				$data['error'] = "Sorry, username already taken!";
+				$data['error'] = "Sorry, username or email already exists!";
 			}
 		}
 

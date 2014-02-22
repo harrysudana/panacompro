@@ -61,4 +61,8 @@ class Template {
 		return $this->uri->getBaseUri();
 	}
 
+	public function get_home_url(){
+		return $this->uri->getBaseUri().INDEX_FILE."/";
+	}
+
 }

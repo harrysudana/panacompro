@@ -9,12 +9,17 @@ class Home extends Resources\Controller
         parent::__construct();
         
         $this->auth = new Libraries\Auth;
+        $this->template = new Libraries\Template;
 
         $this->auth->disallow();
     }
 
     public function index()
     {
-        echo 'Hello world!';
+        $data=array();
+
+        $data['title'] = "Dashboard";
+        $this->template->render('admin','index',$data);
+        //echo 'Hello world!';
     }
 }

@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,13 +8,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="<?php echo $this->get_home_uri();?>assets/ico/favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title><?php echo $title;?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $this->get_theme_uri();?>css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="<?php echo $this->get_theme_uri();?>css/style.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="<?php echo $this->get_theme_uri();?>js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -31,9 +27,3 @@
   </head>
 
   <body>
-
-    <div class="container">
-
-
-
-    

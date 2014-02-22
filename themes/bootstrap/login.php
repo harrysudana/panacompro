@@ -1,7 +1,7 @@
 <?php
-$this->the_header('admin');
+$this->the_header();
 ?>
-
+<div class="container">
       <form class="form-signin" role="form" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <?php
@@ -17,7 +17,7 @@ $this->the_header('admin');
         <input type="hidden" name="loginSignature" value="<?php echo $signature;?>" >
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="btnlogin" value="login">Sign in</button>
       </form>
-
+</div> <!-- /container -->
 <?php
 $this->the_footer();
 ?>
