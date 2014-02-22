@@ -3,7 +3,7 @@ namespace Libraries;
 use Resources, Models;
 
 class Template {
-	private $type, $viewFile;
+	private $type, $viewFile, $viewData;
 	public function __construct(){
 		$this->session = new Resources\Session;
         $this->request = new Resources\Request;
@@ -27,7 +27,7 @@ class Template {
 		$this->render($this->type, $view);
 	}
 
-	public function render($type, $view){
+	public function render($type, $view, $data=array()){
 		$this->type = $type;
 		$filePath = APP . '../themes/'. $this->WebConfig['theme'][$this->type] . '/' . $view;
 
@@ -39,6 +39,12 @@ class Template {
             $arr = $e->getTrace();
             Resources\RunException::outputError($e->getMessage());
         }
+
+        if( ! empty($data) )
+        	$this->viewData = array("data"=>$data);
+
+        if(!empty($this->viewData))
+        	extract( $this->viewData['data'], EXTR_SKIP );
 
 		include $this->viewFile;
 	}
