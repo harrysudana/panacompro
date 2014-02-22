@@ -16,7 +16,7 @@ $this->the_header();
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="<?php echo $this->get_home_url();?>administration">Home</a></li>
+				<li class="active"><a href="<?php echo $this->get_site_url('administration');?>">Home</a></li>
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
@@ -44,7 +44,7 @@ $this->the_header();
 					<ul class="dropdown-menu">
 						<li><a href="#">Edit</a></li>
 						<li class="divider"></li>
-						<li><a href="<?php echo $this->get_home_url();?>administration/auth/logout">Logout</a></li>
+						<li><a href="<?php echo $this->get_site_url('administration/auth/logout');?>">Logout</a></li>
 					</ul>
 				</li>
 			</ul>

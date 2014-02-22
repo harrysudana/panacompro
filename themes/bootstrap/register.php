@@ -1,5 +1,5 @@
 <?php
-$this->the_header('admin');
+$this->the_header();
 ?>
 
       <form class="form-signin" role="form" method="post">

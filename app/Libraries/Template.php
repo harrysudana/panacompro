@@ -57,12 +57,20 @@ class Template {
 		return $this->uri->getBaseUri().'themes/'.$this->WebConfig['theme'][$this->type].'/';
 	}
 
-	public function get_home_uri(){
-		return $this->uri->getBaseUri();
+	public function get_base_url($str=""){
+		if($str<>"")
+			$str = $str."/";
+		return $this->uri->getBaseUri().$str;
 	}
 
-	public function get_home_url(){
-		return $this->uri->getBaseUri().INDEX_FILE."/";
+	public function get_site_url($str=""){
+		if($str<>"")
+			$str = $str."/";
+		
+		if(INDEX_FILE<>"")
+			return $this->uri->getBaseUri().INDEX_FILE."/".$str;
+		else
+			return $this->uri->getBaseUri().$str;
 	}
 
 }
