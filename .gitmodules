@@ -1,6 +1,3 @@
 [submodule "Panada"]
 	path = Panada
 	url = https://github.com/panada/Panada.git
-[submodule "app/vendors/Twig"]
-	path = app/vendors/Twig
-	url = https://github.com/fabpot/Twig.git
