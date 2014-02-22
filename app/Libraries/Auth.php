@@ -16,13 +16,15 @@ class Auth {
 	}
 
 	public function allow($method="*"){
+		if($method=="*"){
+			return true;
+		}
+
 		if(is_array($method)){
-			foreach($method as $row){
-				if($row != $this->route->getMethod()){
-					if(!$this->islogged()){
-						$controller = new Resources\Controller;
-						$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
-					}
+			if(!in_array($this->route->getMethod(), $method)){
+				if(!$this->islogged()){
+					$controller = new Resources\Controller;
+					$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
 				}
 			}
 		}
@@ -38,7 +40,7 @@ class Auth {
 
 		if(is_array($method)){
 			foreach($method as $row){
-				if($row == $this->route->getMethod()){
+				if(!in_array($this->route->getMethod(), $method)){
 					if(!$this->islogged()){
 						$controller = new Resources\Controller;
 						$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
@@ -62,7 +64,7 @@ class Auth {
 	public function login($username, $password, $signature){
 		if(!$this->validateSignature($signature))
 			return false;
-		
+
 		$user = $this->user->getOne( array('username' => $username) );
 		if( $user && crypt($password, $user->salt) == $user->password ){
             $this->session->setValue(
