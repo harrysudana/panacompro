@@ -15,10 +15,30 @@ class Auth {
 
 	}
 
-	public function allow($method){
+	public function allow($method="*"){
 		if(is_array($method)){
 			foreach($method as $row){
 				if($row != $this->route->getMethod()){
+					if(!$this->islogged()){
+						$controller = new Resources\Controller;
+						$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
+					}
+				}
+			}
+		}
+	}
+
+	public function disallow($method="*"){
+		if($method=="*"){
+			if(!$this->islogged()){
+				$controller = new Resources\Controller;
+				$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
+			}
+		}
+
+		if(is_array($method)){
+			foreach($method as $row){
+				if($row == $this->route->getMethod()){
 					if(!$this->islogged()){
 						$controller = new Resources\Controller;
 						$controller->redirect($this->WebConfig['customadminuri'].'/auth/login');
