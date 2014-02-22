@@ -50,6 +50,31 @@ class Auth {
 		}
 	}
 
+	public function register($username, $email, $signature){
+		if(!$this->validateSignature($signature))
+			return false;
+
+		$salt = md5(uniqid(rand(), true));
+		$temp_pwd = substr($salt, rand(1,5), 5);
+		$uid = $this->user->insert( 
+			array(
+				'username' => $username, 
+				'email' => $email, 
+				'password' => crypt($temp_pwd, $salt),
+				'salt' => $salt
+				) 
+			);
+
+		return true;
+	}
+
+	public function isUsernameExists($username){
+		if( $this->user->getOne( array('username' => $username) ) )
+            return true;
+
+        return false;
+	}
+
 	public function islogged(){
 		$sess_auth = $this->session->getValue('auth');
 		if($sess_auth){
@@ -66,6 +91,7 @@ class Auth {
 			return false;
 
 		$user = $this->user->getOne( array('username' => $username) );
+		
 		if( $user && crypt($password, $user->salt) == $user->password ){
             $this->session->setValue(
             	array('auth' =>

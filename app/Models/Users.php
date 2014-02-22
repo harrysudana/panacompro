@@ -47,7 +47,8 @@ class Users {
         }
 
         public function insert( $data = array() ){
-
+            $data['created'] = date("Y-m-d H:i:s");
+            $data['updated'] = date("Y-m-d H:i:s");
             if( $this->db->insert('users', $data) )
                 return $this->db->insertId();
 

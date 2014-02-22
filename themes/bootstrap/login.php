@@ -9,7 +9,7 @@ $this->the_header('admin');
         	echo "<p class='bg-warning'>".$error."</p>";
         }
         ?>
-        <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
+        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
