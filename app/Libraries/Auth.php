@@ -6,13 +6,9 @@ class Auth {
 
 	public function __construct(){
 		$this->session = new Resources\Session;
-        $this->request = new Resources\Request;
-        $this->uri = new Resources\Uri;
-        $this->route = new Route;
-        $this->user = new Models\Users;
-
-        $this->WebConfig = Resources\Config::website();
-
+		$this->route = new Route;
+		$this->user = new Models\Users;
+		$this->WebConfig = Resources\Config::website();
 	}
 
 	public function allow($method="*"){
@@ -70,9 +66,16 @@ class Auth {
 
 	public function isUsernameExists($username){
 		if( $this->user->getOne( array('username' => $username) ) )
-            return true;
+			return true;
 
-        return false;
+		return false;
+	}
+
+	public function isEmailExists($email){
+		if( $this->user->getOne( array('email' => $email) ) )
+			return true;
+
+		return false;
 	}
 
 	public function islogged(){
@@ -91,31 +94,27 @@ class Auth {
 			return false;
 
 		$user = $this->user->getOne( array('username' => $username) );
-		
+
 		if( $user && crypt($password, $user->salt) == $user->password ){
-            $this->session->setValue(
-            	array('auth' =>
-	                array(
-	                    'uid' => $user->username,
-	                    'pwd' => $user->password
-	                )
-                )
-            );
-            return true;
-        }
+			$this->session->setValue(
+				array('auth' =>
+					array(
+						'uid' => $user->username,
+						'pwd' => $user->password
+						)
+					)
+				);
+			return true;
+		}
 
-        return false;
+		return false;
 	}
 
-	public function generateSignature(){
-		$signature = md5( uniqid(rand(), true) );
-		$this->session->setValue( 'postSignature', $signature );
-		return $signature;
-	}
-
-	public function validateSignature($signature){
-		if($signature == $this->session->getValue( 'postSignature') )
+	private function validateSignature($signature){
+		$this->signature = new RequestSignature;
+		if($this->signature->validate($signature))
 			return true;
 		return false;
 	}
+
 }

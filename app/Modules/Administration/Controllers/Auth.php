@@ -7,7 +7,7 @@ class Auth extends Resources\Controller {
 		parent::__construct();
 		$this->session = new Resources\Session;
 		$this->request = new Resources\Request;
-		$this->uri = new Resources\Uri;
+		
 		$this->auth = new Libraries\Auth;
 		$this->template = new Libraries\Template;
 
@@ -43,7 +43,7 @@ class Auth extends Resources\Controller {
 			}
 		}
 
-		$data['signature'] = $this->auth->generateSignature();
+		$data['signature'] = $this->generateSignature();
 		$this->template->render('admin','login', $data);
 	}
 
@@ -83,8 +83,12 @@ class Auth extends Resources\Controller {
 			}
 		}
 
-		$data['signature'] = $this->auth->generateSignature();
+		$data['signature'] = $this->generateSignature();
 		$this->template->render('admin','register', $data);
 	}
 
+	private function generateSignature(){
+		$this->signature = new Libraries\RequestSignature;
+		return $this->signature->generate();
+	}
 }
