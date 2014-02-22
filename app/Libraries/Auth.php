@@ -52,11 +52,31 @@ class Auth {
 		$sess_auth = $this->session->getValue('auth');
 		if($sess_auth){
 			$user = $this->user->getOne( array('username' => $sess_auth['uid']) );
-			if( $user && md5($sess_auth['pwd']) == $user->password ){
+			if( $user && $sess_auth['pwd'] == $user->password ){
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public function login($username, $password, $signature){
+		if(!$this->validateSignature($signature))
+			return false;
+		
+		$user = $this->user->getOne( array('username' => $username) );
+		if( $user && crypt($password, $user->salt) == $user->password ){
+            $this->session->setValue(
+            	array('auth' =>
+	                array(
+	                    'uid' => $user->username,
+	                    'pwd' => $user->password
+	                )
+                )
+            );
+            return true;
+        }
+
+        return false;
 	}
 
 	public function generateSignature(){

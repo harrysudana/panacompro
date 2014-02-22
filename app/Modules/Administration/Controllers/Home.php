@@ -10,7 +10,7 @@ class Home extends Resources\Controller
         
         $this->auth = new Libraries\Auth;
 
-        $this->auth->allow();
+        $this->auth->disallow();
     }
 
     public function index()

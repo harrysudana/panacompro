@@ -20,8 +20,26 @@ class Auth extends Resources\Controller {
 	}
 
 	public function login(){
-		//$this->template->setType = "admin";
-		$this->template->render('admin','login');
+
+		if( $this->request->post('btnlogin') ) {
+			
+			if( $this->auth->login(
+				$this->request->post('username'),
+				$this->request->post('password'),
+				$this->request->post('signature')
+				) ){
+
+				if( ! $redirect=$this->request->post('redirect') )
+					$this->redirect( $redirect );
+
+				$this->redirect('home');
+			}else{
+				$data['error'] = "Wrong Account!";
+			}
+		}
+
+		$data['signature'] = $this->auth->generateSignature();
+		$this->template->render('admin','login', $data);
 	}
 
 }
